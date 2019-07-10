@@ -1,20 +1,11 @@
-import express from 'express'
-import routes from './src/routes/downloadRoutes'
-import mongoose from 'mongoose'
-import bodyParser from 'body-parser'
-// import downloadModel from './src/models/downloadModel'
- 
+const express = require('express')
+const bodyParser = require('body-parser')
+const expressValidator = require('express-validator')
 const app = express()
-const PORT = 3002
- 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/todo-app')
- 
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json());
- 
-routes(app)
- 
-app.listen(PORT, () => {
-    console.log(`you are server is running on ${PORT}`);
-})
+const router = express.Router()
+
+app.use(bodyParser.json())
+
+app.use(expressValidator())
+
+app.use('/api', router)
